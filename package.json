@@ -1,0 +1,53 @@
+{
+  "name": "sanari",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "npx cross-env NODE_ENV=test jest --testTimeout=60000 --runInBand --detectOpenHandles",
+    "test-watch": "npx cross-env NODE_ENV=test jest --testTimeout=60000 --runInBand --detectOpenHandles --watch"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/public/",
+      "/node_modules/"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporters",
+        {
+          "publicPath": "./public/report",
+          "filename": "unit-test.ejs",
+          "expand": false,
+          "customInfos": [
+            {
+              "key": "value",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "~1.4.6",
+    "cors": "^2.8.5",
+    "debug": "~4.3.4",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.0.2",
+    "express": "~4.17.3",
+    "express-session": "^1.17.2",
+    "http-errors": "~2.0.0",
+    "morgan": "~1.10.0",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "jest-html-reporters": "^3.0.6",
+    "superagent": "^7.1.1",
+    "supertest": "^6.2.2"
+  }
+}

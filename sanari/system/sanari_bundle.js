@@ -6,6 +6,7 @@ export default () => {
     "setting",
     "i18n",
     "utils",
+    "config",
     "helpers",
     "response",
     "repository",

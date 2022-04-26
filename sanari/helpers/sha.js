@@ -1,4 +1,4 @@
-import sha from 'sha1';
+import sha from "sha1";
 
 /**
  * encryption function with sha1
@@ -7,7 +7,7 @@ import sha from 'sha1';
  */
 export default (value) => {
 
-  const key = 'very-safe';
+  const key = "very-safe";
   if (typeof value !== "string") {
     value = "";
   }

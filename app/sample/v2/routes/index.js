@@ -1,10 +1,10 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
 
 /**
  * endpoint GET "/"
  */
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
 
   /**
    * response sayHallo "Sample";
@@ -13,4 +13,4 @@ router.get('/', async (req, res, next) => {
   return sans.response.successData(res, {}, sans.helpers.sayHello("Sample Other Version"));
 });
 
-module.exports = router;
+export default router;

@@ -1,17 +1,15 @@
-'use strict';
+"use strict";
 
 import fs from "fs";
 import url from "url";
 import path from "path";
 import Sequelize from "sequelize";
-import file_config from "./../config/config.mjs";
-
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = file_config[env];
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.cjs")[env];
 
 const db = {};
 
@@ -25,7 +23,7 @@ if (config.use_env_variable) {
 const file = fs
   .readdirSync(__dirname)
   .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js' || file.slice(-4) === '.mjs');
+    return (file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js");
   });
 
 for (let i = 0; i < file.length; i++) {

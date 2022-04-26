@@ -1,10 +1,10 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
 
 /**
  * endpoint GET "/"
  */
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   
   req.permission_name = "baseurl";
 
@@ -17,4 +17,4 @@ router.get('/', async (req, res, next) => {
   sans.helpers.runMiddleware(middleware, req, res);
 });
 
-module.exports = router;
+export default router;

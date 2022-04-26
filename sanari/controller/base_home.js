@@ -1,6 +1,6 @@
 export default (req, res) => {
   
-  const {name, version, dependencies, devDependencies = {}} = sans.require(`${__basedir}/package.json`);
+  const {name, version, dependencies, devDependencies = {}} = require(`${__basedir}/package.json`);
   const data = {name, version, dependencies, devDependencies, app : app_name};
 
   /**

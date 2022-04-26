@@ -1,9 +1,9 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
 const { exec } = require("child_process");
 
 // report unit tests
-router.get('/',
+router.get("/",
   async (req, res, next) => {
 
     // default value object data;
@@ -12,7 +12,7 @@ router.get('/',
     /**
      * render web page
      */
-    res.render('report/unit-test', data, (err, html) => {
+    res.render("report/unit-test", data, (err, html) => {
 
       // check is error
       if (err) {
@@ -32,11 +32,11 @@ router.get('/',
 );
 
 // update unit test status
-router.get('/test',
+router.get("/test",
   (req, res, next) => {
     exec("npm test", (error, stdout, stderr) => {  });
     return res.redirect("/report/unit-test");
   }
 );
 
-module.exports = router;
+export default router;

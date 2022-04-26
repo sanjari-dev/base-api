@@ -1,14 +1,14 @@
 import fs from "fs";
-import my_module from "./../../module/index.mjs";
+import sub_folder from "../../module/sub-folder.js";
 
 const sort_app = (a, b) => {
   let order_app_a = Math.random() * 1000;
   let order_app_b = Math.random() * 1000;
   try {
-    order_app_a = fs.readFileSync(`${directory.app}/${a}/.order`, {encoding:'utf8'});
+    order_app_a = fs.readFileSync(`${directory.app}/${a}/.order`, {encoding:"utf8"});
   } catch (err) { }
   try {
-    order_app_b = fs.readFileSync(`${directory.app}/${b}/.order`, {encoding:'utf8'});
+    order_app_b = fs.readFileSync(`${directory.app}/${b}/.order`, {encoding:"utf8"});
   } catch (err) { }
   return order_app_a - order_app_b;
 }
@@ -16,7 +16,7 @@ const sort_app = (a, b) => {
 const filter_app = (x) => {
   let status = true;
   try {
-    let a = fs.readFileSync(`${directory.app}/${x}/.status`, {encoding:'utf8'});
+    let a = fs.readFileSync(`${directory.app}/${x}/.status`, {encoding:"utf8"});
     if (a === "inactive") {
       status = false;
     }
@@ -46,7 +46,7 @@ const version_only = () => {
 /**
  * Setup Global Sanari App
  */
-export default async() => {
+export default async () => {
   global.app = {};
 
   const folder_app = fs
@@ -84,7 +84,6 @@ export default async() => {
   }
   global.app_version = version_app;
 
-
   /**
    * Setup App Client
    */
@@ -100,12 +99,12 @@ export default async() => {
       for (let index = 0; index < folder_sanari_app.length; index++) {
         if (!sans["bundle"].find(x => x == folder_sanari_app[index]) && folder_sanari_app[index] !== "routes") {
           const sub_sanari = `${directory.app}/${temp_name_app}/${temp_version_app}/${folder_sanari_app[index]}`;
-          app[temp_name_app][temp_version_app][folder_sanari_app[index]] = await my_module.sub_folder(sub_sanari);
+          app[temp_name_app][temp_version_app][folder_sanari_app[index]] = await sub_folder(sub_sanari);
         }
       }
       for (let index = 0; index < sans["bundle"].length; index++) {
         const sub_sanari = `${directory.app}/${temp_name_app}/${temp_version_app}/${sans["bundle"][index]}`;
-        app[temp_name_app][temp_version_app][sans["bundle"][index]] = await my_module.sub_folder(sub_sanari);
+        app[temp_name_app][temp_version_app][sans["bundle"][index]] = await sub_folder(sub_sanari);
       }
     }
   }
@@ -122,10 +121,6 @@ export default async() => {
         app[temp_app][temp_version_app]["setting"][settings[index]]();
       }
     }
-  }
-  
-  if (Object.keys(global).find(x => x === "app_use")) {
-    app_use();
   }
   
 };

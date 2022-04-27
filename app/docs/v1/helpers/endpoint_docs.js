@@ -49,7 +49,7 @@ export default (caller, config) => {
   const response_default = _.response;
   let response_app = sans.helpers.apps(caller).response;
   for (let i = 0; i < _sanari.length; i++) {
-    response_app = response_app[_sanari[i]];
+    response_app = response_app[_sanari[i]] || {};
   }
   const keys_response_app = Object.keys(response_app || {});
   const keys_code_http = Object.keys(code_http);

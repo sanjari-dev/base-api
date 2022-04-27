@@ -7,6 +7,6 @@ export default (router, config, regex) => {
   const _ = sans.helpers.apps();
 
   _.helpers.endpoint_docs(sans.caller(), config);
-  _.helpers.endpoint_express(sans.caller(), router, config, regex);
+  _.helpers.endpoint_express(router, config, regex);
 
 };

@@ -1,12 +1,13 @@
 
 export const middleware = async (req, res, next) => {
-
+  
   const _ = sans.helpers.apps();
 
   // set middleware
   let middleware = [
     sans.middleware.x_access_token,
-    _.controller.login.post
+    sans.middleware.token,
+    _.controller.password.patch
   ];
 
   // call middleware function custom
@@ -14,17 +15,13 @@ export const middleware = async (req, res, next) => {
 }
 
 export const tags = [];
-export const summary = "Login Account";
-export const summary_description = "Description For Login Account";
+export const summary = "Change Password";
+export const summary_description = "Change Password";
 export const request_query = [];
 export const request_body = {
-  "email": {
+  "new_password": {
     "type": "string",
-    "format": "email"
-  },
-  "username": {
-    "type": "string",
-    "example": "username"
+    "example": "password"
   },
   "password": {
     "type": "string",
@@ -34,6 +31,7 @@ export const request_body = {
 export const deprecated = false;
 export const security = [
   {
-    "access_token": []
+    "access_token": [],
+    "token": []
   }
 ];

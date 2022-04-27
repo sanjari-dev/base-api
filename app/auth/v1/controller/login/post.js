@@ -67,7 +67,7 @@ export default async (req, res, next) => {
     }
 
     // compare password and password user
-    if (!sans.helpers.app(__dirname).helpers.comparePassword(req.body.password, { id: account.id, password: account.password })) {
+    if (!sans.helpers.apps().helpers.comparePassword(req.body.password, { id: account.id, password: account.password })) {
 
       // send response with error not found because password incorrect
       return sans.response.errorNotAuth(res, "password doesn't match");
@@ -85,7 +85,7 @@ export default async (req, res, next) => {
     user_groups.forEach(x => {
       roles.push(
         {
-          role: sans.helpers.app(__dirname).schema.role(x)
+          role: sans.helpers.apps().schema.role(x)
         }
       )
     });
@@ -97,11 +97,11 @@ export default async (req, res, next) => {
 
     // option jwt
     let option = {
-      expiresIn: sans.helpers.app(__dirname).utils.jwt.jwtExpiration
+      expiresIn: sans.helpers.apps().utils.jwt.jwtExpiration
     }
 
     // create token jwt
-    let token = jwt.sign(data_jwt, sans.helpers.app(__dirname).utils.jwt.secret_key, option);
+    let token = jwt.sign(data_jwt, sans.helpers.apps().utils.jwt.secret_key, option);
 
     // set token to database
     token = await db.user.token.createToken(account.id, token);
@@ -110,7 +110,7 @@ export default async (req, res, next) => {
      * response data
      */
     const data = {
-      user: sans.helpers.app(__dirname).schema.user(account),
+      user: sans.helpers.apps().schema.user(account),
       roles,
       token
     };

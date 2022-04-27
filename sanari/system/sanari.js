@@ -1,6 +1,8 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
+import sub_folder from "../../module/sub-folder.js";
+
 import sanari_bundle from "./sanari_bundle.js";
 import sanari_global from "./sanari_global.js";
 import sanari_db_postgres from "./sanari_db_postgres.js";
@@ -17,6 +19,7 @@ export default {
         postgres  : `${__basedir}/database/postgres`
       },
     }
+    sans["sub_folder"] = sub_folder;
   },
   sanari_bundle,
   sanari_global,

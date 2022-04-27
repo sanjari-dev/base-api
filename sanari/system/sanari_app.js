@@ -1,5 +1,4 @@
 import fs from "fs";
-import sub_folder from "../../module/sub-folder.js";
 
 const sort_app = (a, b) => {
   let order_app_a = Math.random() * 1000;
@@ -99,12 +98,12 @@ export default async () => {
       for (let index = 0; index < folder_sanari_app.length; index++) {
         if (!sans["bundle"].find(x => x == folder_sanari_app[index]) && folder_sanari_app[index] !== "routes") {
           const sub_sanari = `${directory.app}/${temp_name_app}/${temp_version_app}/${folder_sanari_app[index]}`;
-          app[temp_name_app][temp_version_app][folder_sanari_app[index]] = await sub_folder(sub_sanari);
+          app[temp_name_app][temp_version_app][folder_sanari_app[index]] = await sans.sub_folder(sub_sanari);
         }
       }
       for (let index = 0; index < sans["bundle"].length; index++) {
         const sub_sanari = `${directory.app}/${temp_name_app}/${temp_version_app}/${sans["bundle"][index]}`;
-        app[temp_name_app][temp_version_app][sans["bundle"][index]] = await sub_folder(sub_sanari);
+        app[temp_name_app][temp_version_app][sans["bundle"][index]] = await sans.sub_folder(sub_sanari);
       }
     }
   }
@@ -118,9 +117,8 @@ export default async () => {
       const temp_version_app = keys(app[temp_app])[j];
       const settings = keys(app[temp_app][temp_version_app].setting);
       for (let index = 0; index < settings.length; index++) {
-        app[temp_app][temp_version_app]["setting"][settings[index]]();
+        await app[temp_app][temp_version_app]["setting"][settings[index]]();
       }
     }
   }
-  
 };

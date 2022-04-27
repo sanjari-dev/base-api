@@ -1,12 +1,23 @@
 import fs from "fs";
 import express from "express";
 
-
 /**
  * Load Router Config
  */
 const load_router = async (basedir, root = "routes") => {
   const router = express.Router();
+  const index = fs.readdirSync(`${basedir}/${root}`).find(x => x === "index.js");
+  
+  if (index) {
+    const obj = await import(`file://${basedir}/${root}/${index}`);
+    if (Object.keys(obj).find(x => x === "default")) {
+      router.use("/", obj.default);
+    }else{
+      router.use("/", obj);
+    }
+  }
+
+  /*
   const sub = fs.readdirSync(`${basedir}/${root}`).filter(x => x.slice(-3) === ".js" || x.indexOf(".") === -1);
   for (let i = 0; i < sub.length; i++) {
     if (sub[i].indexOf(".") === -1) {
@@ -34,6 +45,8 @@ const load_router = async (basedir, root = "routes") => {
       }
     }
   }
+  */
+
   return router;
 }
 

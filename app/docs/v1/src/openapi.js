@@ -39,12 +39,7 @@ export default {
       }
     }
   ],
-  "tags": [
-    {
-      "name": "Auth",
-      "description": "Authentication"
-    }
-  ],
+  "tags": [],
   "externalDocs": {
     "description": "Download File Docs API documentation",
     "url": "https://sanari.sanjari.dev/api/v1/docs/download"

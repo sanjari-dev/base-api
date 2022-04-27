@@ -1,7 +1,14 @@
 
 export default (data) => {
   if (!data) {
-    return {};
+    return {
+      id: 1,
+      name: "user",
+      username: "username",
+      email: "user@example.com",
+      phone_number: "6281234567890",
+      image: "image.png"
+    };
   }
   return {
     id: parseInt(data.id),

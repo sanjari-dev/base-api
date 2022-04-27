@@ -15,10 +15,6 @@ export default async (filename, dirname) => {
     .filter(file => {
       return ((file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js") || file !== basename);
     });
-    // .forEach(file => {
-    //   let name_app = file.split(".js")[0];
-    //   obj[name_app] = require(`${dirname}/${name_app}`);
-    // });
 
   for (let i = 0; i < file.length; i++) {
     let name_app = file[i].split(".js")[0];

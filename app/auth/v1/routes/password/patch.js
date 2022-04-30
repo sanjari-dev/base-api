@@ -7,6 +7,7 @@ export const middleware = async (req, res, next) => {
   let middleware = [
     sans.middleware.x_access_token,
     sans.middleware.token,
+    _.controller.password.patch_validate,
     _.controller.password.patch
   ];
 

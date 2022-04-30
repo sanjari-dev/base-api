@@ -5,6 +5,8 @@ const token = async (req, res, next) => {
   // block try
   try {
 
+    const _ = sans.helpers.apps();
+
     // get token from request headers access token
     let token = req.headers.authorization;
 
@@ -29,7 +31,7 @@ const token = async (req, res, next) => {
 
     // try get user with token
     try {
-      user = jwt.verify(token, sans.headers.apps().utils.secret_key);
+      user = jwt.verify(token, _.utils.jwt.secret_key);
     }
 
     // handle error jwt

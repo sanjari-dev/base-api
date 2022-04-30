@@ -28,5 +28,24 @@ export default (sequelize, DataTypes) => {
     paranoid: true,
     modelName: "account",
   });
+  account.add = async (data) => {
+
+    // last account
+    const last = await account.findOne({
+      order: [
+        ['id', 'DESC']
+      ],
+      paranoid: false
+    });
+
+    // set account id
+    data.id = last ? last.id + 1 : 1;
+    data.password = sans.helpers.sha(`${data.id}-${data.password}`);
+
+    // create data account
+    const dataCreate = await account.create(data);
+
+    return dataCreate
+  }
   return account;
 };

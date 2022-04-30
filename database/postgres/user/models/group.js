@@ -24,5 +24,25 @@ export default (sequelize, DataTypes) => {
     paranoid: true,
     modelName: "group",
   });
+  
+  group.add = async (data) => {
+
+    // last account
+    let last = await group.findOne({
+      order: [
+        ['id', 'DESC']
+      ],
+      paranoid: false
+    })
+
+    // set account id
+    data.id = last ? last.id + 1 : 1
+
+    // create data account
+    let dataCreate = await group.create(data)
+
+    return dataCreate
+  }
+
   return group;
 };

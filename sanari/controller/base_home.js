@@ -1,7 +1,7 @@
 export default (req, res) => {
   
   const {name, version, dependencies, devDependencies = {}} = require(`${__basedir}/package.json`);
-  const data = {name, version, dependencies, devDependencies, app : app_name};
+  const data = {name, version, dependencies, devDependencies, app : app_name, sanari: sans.bundle};
 
   /**
    * response sayHallo "Sanari";

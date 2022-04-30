@@ -1,9 +1,9 @@
 
-export default (caller, config) => {
+export default (caller, config, response_name = "", regex = "") => {
   
   const _ = sans.helpers.apps();
 
-  const url = _.helpers.url(caller);
+  const url = _.helpers.url(caller, regex);
   const method = _.helpers.method(sans.caller());
   const tags = _.helpers.tags(caller, config.tags);
   
@@ -18,9 +18,43 @@ export default (caller, config) => {
   src_docs_v1["paths"][url][method]["tags"] = tags;
   src_docs_v1["paths"][url][method]["summary"] = config.summary || url.split("/")[url.split("/").length - 1];
   src_docs_v1["paths"][url][method]["description"] = config.summary_description || "";
-  src_docs_v1["paths"][url][method]["parameters"] = config.parameters || [];
   src_docs_v1["paths"][url][method]["deprecated"] = config.deprecated ? true : false;
   src_docs_v1["paths"][url][method]["security"] = config.security || [];
+
+  let parameters = [];
+  regex
+    .split("/")
+    .map(x => {
+      if (x !== "") {
+        const x_custom = x.split(":");
+        if (x_custom.length > 1) {
+          parameters.push(
+            {
+              "name": x_custom[x_custom.length - 1],
+              "in": "path",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          )
+          return `{${x_custom[x_custom.length - 1]}}`;
+        }
+      }
+      return x;
+    });
+
+  if(config.request_query){
+    for (let i = 0; i < config.request_query.length; i++) {
+      if (!parameters.find(x => x.name === config.request_query[i].name)) {
+        parameters.push(config.request_query[i]);
+      }else{
+        parameters = parameters.filter(x => x.name !== config.request_query[i].name);
+        parameters.push(config.request_query[i]);
+      }
+    }
+  }
+  src_docs_v1["paths"][url][method]["parameters"] = parameters;
   
   if (config.request_body) {
     src_docs_v1["paths"][url][method]["requestBody"] = {};
@@ -44,7 +78,11 @@ export default (caller, config) => {
     .map((x, i) => i > 3 ? x : undefined)
     .filter(x => x && x !== "index.js");
 
-  _sanari.push(method);
+  if (response_name) {
+    _sanari.push(response_name);
+  }else{
+    _sanari.push(method);
+  }
   
   const response_default = _.response;
   let response_app = sans.helpers.apps(caller).response;

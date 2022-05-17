@@ -24,6 +24,9 @@ export default (sequelize, DataTypes) => {
     verified: DataTypes.INTEGER,
     otp: DataTypes.STRING
   }, {
+    scopes: {
+      index: {}
+    },
     sequelize,
     paranoid: true,
     modelName: "account",

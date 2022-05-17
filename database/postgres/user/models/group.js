@@ -20,6 +20,9 @@ export default (sequelize, DataTypes) => {
     by: DataTypes.INTEGER,
     count: DataTypes.INTEGER
   }, {
+    scopes: {
+      index: {}
+    },
     sequelize,
     paranoid: true,
     modelName: "group",

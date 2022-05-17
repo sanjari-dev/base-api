@@ -17,6 +17,7 @@ module.exports =   {
       "idle": 10 * 60 * 1000
     },
     "schema" : "user",
+    "logging": false
   },
   "test": {
     "username": process.env.DB_USERNAME || "postgres",

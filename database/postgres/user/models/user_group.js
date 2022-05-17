@@ -22,6 +22,14 @@ export default (sequelize, DataTypes) => {
     group_id: DataTypes.INTEGER,
     is_default: DataTypes.BOOLEAN
   }, {
+    scopes: {
+      index: {
+        include: [
+          sequelize.models.account,
+          sequelize.models.group
+        ]
+      }
+    },
     sequelize,
     paranoid: true,
     modelName: "user_group",

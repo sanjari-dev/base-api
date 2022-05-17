@@ -2,46 +2,49 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 import express from "express";
-const router = express.Router();
 
-/**
- * endpoint GET "/"
- */
-router.get("/", async (req, res, next) => {
-  
-  req.permission_name = "baseurl";
+export default () => {
+  const router = express.Router();
 
-  // set middleware
-  let middleware = [
-    (req, res, next) => {
-      
-      const {
-        name, 
-        version, 
-        dependencies, 
-        devDependencies = {}
-      } = require(`${__basedir}/package.json`);
+  /**
+   * endpoint GET "/"
+   */
+  router.get("/", async (req, res, next) => {
+    
+    req.permission_name = "baseurl";
 
-      const data = {
-        name, 
-        version,
-        dependencies,
-        devDependencies,
-        sanari: sans.sanari.bundle(),
-        sans
-      };
+    // set middleware
+    let middleware = [
+      (req, res, next) => {
+        
+        const {
+          name, 
+          version, 
+          dependencies, 
+          devDependencies = {}
+        } = require(`${__basedir}/package.json`);
 
-      // const data = {};
-      return sans.helpers.response
-        .success(
-          data, 
-          sans.helpers.sanari.sayHello("Sanari")
-        );
-    }
-  ];
+        const data = {
+          name, 
+          version,
+          dependencies,
+          devDependencies,
+          sanari: sans.sanari.bundle(),
+          sans
+        };
 
-  // call middleware function custom
-  sans.helpers.middleware.run(middleware);
-});
+        // const data = {};
+        return sans.helpers.response
+          .success(
+            data, 
+            sans.helpers.sanari.sayHello("Sanari")
+          );
+      }
+    ];
 
-export default router;
+    // call middleware function custom
+    sans.helpers.middleware.run(middleware);
+  });
+
+  return router;
+};

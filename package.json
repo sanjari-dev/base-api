@@ -52,7 +52,6 @@
     "morgan": "~1.10.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
-    "sanari": "file:../dev-sanari/sanari",
     "sequelize": "^6.19.0",
     "sha1": "^1.1.1",
     "swagger-ui-express": "^4.3.0"

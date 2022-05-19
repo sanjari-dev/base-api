@@ -42,33 +42,42 @@ export default class M_Login
       check("user")
         .custom(async (value, { req }) => 
           {
-            let account = await db.user.account.findOne(
-              {
-                where: req.where_account
-              }
-            );
-            if (!account) {
-              if (Object.keys(req.where_account)[0] === "username") {
-                if (!req.body.email) {
-                  // response not found if not exist
-                  throw new Error("Unregistered username or email");
-                }
-                // get account where option
-                account = await db.user.account.findOne(
+            try {
+              let account = await db.user.account
+                .scope(
                   {
-                    where: {
-                      email : req.body.email
-                    }
+                    method: ["profile", db.user, req.where_account]
                   }
-                );
-                if (!account) {
-                  // response not found if not exist
-                  throw new Error("Unregistered username or email");
+                )
+                .findOne();
+              if (!account) {
+                if (Object.keys(req.where_account)[0] === "username") {
+                  if (!req.body.email) {
+                    // response not found if not exist
+                    throw new Error("Unregistered username or email");
+                  }
+                  // get account where option
+                  account = await db.user.account
+                    .scope(
+                      {
+                        method: ["profile", db.user, {
+                          email: req.body.email
+                        }]
+                      }
+                    )
+                    .findOne();
+                  if (!account) {
+                    // response not found if not exist
+                    throw new Error("Unregistered username or email");
+                  }
                 }
               }
+              req.account = account;
+              return true;
+            } catch (err) {
+              console.debug(err);
+              throw err;
             }
-            req.account = account;
-            return true;
           }
         ),
       check("compare-password")
@@ -138,27 +147,6 @@ export default class M_Login
 
       let account = req.account;
 
-      // get all group in account
-      let user_groups = await db.user.user_group.get(
-        {
-          where: {
-            account_id: account.id
-          }
-        }
-      );
-      let roles = [];
-      user_groups.forEach(x => {
-        roles.push(
-          {
-            id: x.group.id,
-            name: x.group.name,
-            description: x.group.description,
-            count: x.group.count,
-            is_default: x.is_default
-          }
-        )
-      });
-
       // data jwt only id account
       let data_jwt = {
         id: account.id
@@ -177,7 +165,7 @@ export default class M_Login
 
       const data = {
         user: _.schema.user.get(account),
-        roles: _.schema.role.list(roles),
+        role: _.schema.role.get(account.group),
         token
       };
       return response.success(data, "login has been successful");

@@ -12,13 +12,10 @@ export default class Account extends sans.class.classer.controller
     super.repository = _.repository.account;
     super.schema = {
       "index" : _.schema.user,
-      "store": {
-        "adder": _.schema.user,
-        "show": _.schema.user
-      }
+      "store": _.schema.user
     };
 
-    this.#setup_docs();
+    this.#setup_docs(); 
   }
 
   static setup()
@@ -47,6 +44,10 @@ export default class Account extends sans.class.classer.controller
           "type": "string",
           "example": "username"
         },
+        "password": {
+          "type": "string",
+          "example": "password"
+        },
         "email": {
           "type": "string",
           "format": "email"
@@ -55,9 +56,33 @@ export default class Account extends sans.class.classer.controller
           "type": "string",
           "example": "6281234567890"
         },
-        "image": {
+        "profile": {
           "type": "string",
           "example": "image.png"
+        },
+        "birthday": {
+          "type": "integer",
+          "example": (new Date()).getTime()
+        },
+        "group_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "menu_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "employee_role_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "employee_status_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "employee_grade_id": {
+          "type": "integer",
+          "example": 1
         }
       }
     }

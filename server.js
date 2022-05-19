@@ -26,7 +26,7 @@ import cors from "cors";
  * Module Core Sanari
  */
 // import Main from "./core/index.js";
-import Sanari from "sanari";
+import Sanari from "sanari-api";
 
 /**
  * app

@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("tokens", {
+    await queryInterface.createTable("user_permissions", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,11 +11,16 @@ module.exports = {
       account_id: {
         type: Sequelize.INTEGER
       },
-      token: {
-        type: Sequelize.TEXT
+      permission_id: {
+        type: Sequelize.INTEGER
       },
-      expired: {
-        type: Sequelize.DATE
+      createdBy: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      updatedBy: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +38,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable({tableName : "tokens", schema : "user"});
+    await queryInterface.dropTable({tableName : "user_permissions", schema : "user"});
   }
 };

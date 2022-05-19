@@ -11,33 +11,22 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    let group = [
+    return await queryInterface.bulkInsert(
       {
-        name: "Dev",
-        count: 1
-      }
-    ]
-
-    let auth_group = []
-    group.forEach((g, i, arr) => {
-      auth_group.push(
+        tableName: "permissions", schema: "user"
+      },
+      [
         {
-          id: (i + 1),
-          name: g.name,
+          id: 1,
+          name: "post_auth_login",
+          display: "Auth Login",
           description: "",
-          by: 1,
-          count: g.count,
+          createdBy: 1,
+          updatedBy: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         }
-      )
-    });
-
-    return await queryInterface.bulkInsert(
-      {
-        tableName: "groups", schema: "user"
-      },
-      auth_group,
+      ],
       {}
     );
   },
@@ -49,7 +38,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete("People", null, {});
      */
-    return await queryInterface.bulkDelete({tableName : "groups", schema : "user"}, null, {});
+    return await queryInterface.bulkDelete({tableName : "permissions", schema : "user"}, null, {});
 
   }
 };

@@ -14,7 +14,10 @@ export default (sequelize, DataTypes) => {
   token.init({
     account_id: DataTypes.INTEGER,
     token: DataTypes.TEXT,
-    expired: DataTypes.DATE
+    expired: DataTypes.BIGINT,
+    time: DataTypes.BIGINT,
+    createdBy: DataTypes.INTEGER,
+    updatedBy: DataTypes.INTEGER,
   }, {
     sequelize,
     paranoid: true,
@@ -35,7 +38,10 @@ export default (sequelize, DataTypes) => {
       {
         id,
         token: _token,
-        account_id: _account_id
+        account_id: _account_id,
+        time: (new Date()).getTime(),
+        createdBy: _account_id,
+        updatedBy: _account_id, 
       }
     );
 

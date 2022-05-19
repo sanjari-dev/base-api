@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      name: {
         type: Sequelize.STRING
       },
       username: {
@@ -17,20 +17,49 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      phone_number: {
+      email: {
         type: Sequelize.STRING
       },
-      name: {
+      phone_number: {
         type: Sequelize.STRING
       },
       profile: {
         type: Sequelize.STRING
       },
-      verified: {
-        type: Sequelize.INTEGER
+      birthday: {
+        type: Sequelize.BIGINT
       },
       otp: {
         type: Sequelize.STRING
+      },
+      verified: {
+        type: Sequelize.INTEGER
+      },
+      telephone: {
+        type: Sequelize.STRING
+      },
+      group_id: {
+        type: Sequelize.INTEGER
+      },
+      menu_id: {
+        type: Sequelize.INTEGER
+      },
+      employee_role_id: {
+        type: Sequelize.INTEGER
+      },
+      employee_status_id: {
+        type: Sequelize.INTEGER
+      },
+      employee_grade_id: {
+        type: Sequelize.INTEGER
+      },
+      createdBy: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      updatedBy: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

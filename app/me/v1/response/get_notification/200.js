@@ -9,12 +9,8 @@ export default class R_200
   constructor()
   {
     const _ = sans.app().class;
-    const data = {
-      user: _.schema.user.get(),
-      role: _.schema.role.get(),
-      token : "secret_token_user"
-    };
-    const message = "login has been successful";
+    const data = _.schema.notification.list();
+    const message = "user notification";
     this.#_example =  {
       "success": {
         "value": sans.helpers.response.success(data, message)

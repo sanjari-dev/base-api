@@ -9,46 +9,67 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      account.hasMany(models.user_group, {
+      account.belongsTo(models.group, {
+        foreignKey: "group_id"
+      });
+      account.belongsTo(models.menu, {
+        foreignKey: "menu_id"
+      });
+      account.belongsTo(models.employee_role, {
+        foreignKey: "employee_role_id"
+      });
+      account.belongsTo(models.employee_status, {
+        foreignKey: "employee_status_id"
+      });
+      account.belongsTo(models.employee_grade, {
+        foreignKey: "employee_grade_id"
+      });
+
+      account.hasMany(models.notification, {
+        foreignKey: "account_id"
+      });
+      account.hasMany(models.activity, {
         foreignKey: "account_id"
       });
     }
   };
   account.init({
-    email: DataTypes.STRING,
+    name: DataTypes.STRING,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    email: DataTypes.STRING,
     phone_number: DataTypes.STRING,
-    name: DataTypes.STRING,
     profile: DataTypes.STRING,
+    birthday: DataTypes.BIGINT,
+    otp: DataTypes.STRING,
     verified: DataTypes.INTEGER,
-    otp: DataTypes.STRING
+    telephone: DataTypes.STRING,
+    group_id: DataTypes.INTEGER,
+    menu_id: DataTypes.INTEGER,
+    employee_role_id: DataTypes.INTEGER,
+    employee_status_id: DataTypes.INTEGER,
+    employee_grade_id: DataTypes.INTEGER,
+    createdBy: DataTypes.INTEGER,
+    updatedBy: DataTypes.INTEGER,
   }, {
+    defaultScope: {},
     scopes: {
-      index: {}
+      profile(_models, where)
+      {
+        const data = {
+          include: [
+            _models.group
+          ]
+        };
+        if (where) {
+          data.where = where;
+        }
+        return data;
+      }
     },
     sequelize,
     paranoid: true,
     modelName: "account",
   });
-  account.add = async (data) => {
-
-    // last account
-    const last = await account.findOne({
-      order: [
-        ['id', 'DESC']
-      ],
-      paranoid: false
-    });
-
-    // set account id
-    data.id = last ? last.id + 1 : 1;
-    data.password = sans.helpers.sha(`${data.id}-${data.password}`);
-
-    // create data account
-    const dataCreate = await account.create(data);
-
-    return dataCreate
-  }
   return account;
 };

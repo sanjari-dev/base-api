@@ -11,7 +11,7 @@ export default class R_200
     const _ = sans.app().class;
     const data = {
       user: _.schema.user.get(),
-      roles: _.schema.role.list()
+      role: _.schema.role.get()
     };
     const message = "user";
     this.#_example =  {

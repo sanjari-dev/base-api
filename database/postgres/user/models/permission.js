@@ -1,7 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  class group extends Model {
+  class permission extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,23 +9,18 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      group.hasMany(models.account, {
-        foreignKey: "group_id"
-      });
     }
   };
-  group.init({
+  permission.init({
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    by: DataTypes.INTEGER,
-    count: DataTypes.INTEGER,
     display: DataTypes.STRING,
+    description: DataTypes.STRING,
     createdBy: DataTypes.INTEGER,
     updatedBy: DataTypes.INTEGER,
   }, {
     sequelize,
     paranoid: true,
-    modelName: "group",
+    modelName: "permission",
   });
-  return group;
+  return permission;
 };

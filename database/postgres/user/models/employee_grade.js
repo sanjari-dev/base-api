@@ -1,7 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  class group extends Model {
+  class employee_grade extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,23 +9,20 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      group.hasMany(models.account, {
-        foreignKey: "group_id"
+      employee_grade.hasMany(models.account, {
+        foreignKey: "employee_grade_id"
       });
     }
   };
-  group.init({
-    name: DataTypes.STRING,
+  employee_grade.init({
+    grade: DataTypes.STRING,
     description: DataTypes.STRING,
-    by: DataTypes.INTEGER,
-    count: DataTypes.INTEGER,
-    display: DataTypes.STRING,
     createdBy: DataTypes.INTEGER,
     updatedBy: DataTypes.INTEGER,
   }, {
     sequelize,
     paranoid: true,
-    modelName: "group",
+    modelName: "employee_grade",
   });
-  return group;
+  return employee_grade;
 };

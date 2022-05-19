@@ -1,7 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  class group extends Model {
+  class master_menu extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,23 +9,24 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      group.hasMany(models.account, {
-        foreignKey: "group_id"
+      master_menu.hasMany(models.menu_item, {
+        foreignKey: "master_menu_id"
       });
     }
   };
-  group.init({
+  master_menu.init({
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    by: DataTypes.INTEGER,
-    count: DataTypes.INTEGER,
+    icon: DataTypes.STRING,
+    slug: DataTypes.STRING,
+    path: DataTypes.STRING,
     display: DataTypes.STRING,
+    status: DataTypes.INTEGER,
     createdBy: DataTypes.INTEGER,
     updatedBy: DataTypes.INTEGER,
   }, {
     sequelize,
     paranoid: true,
-    modelName: "group",
+    modelName: "master_menu",
   });
-  return group;
+  return master_menu;
 };

@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("user_groups", {
+    await queryInterface.createTable("notifications", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,11 +11,31 @@ module.exports = {
       account_id: {
         type: Sequelize.INTEGER
       },
-      group_id: {
+      title: {
+        type: Sequelize.STRING
+      },
+      is_read: {
+        type: Sequelize.BIGINT
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      type: {
+        type: Sequelize.STRING
+      },
+      link_path: {
+        type: Sequelize.STRING
+      },
+      link_params: {
+        type: Sequelize.STRING
+      },
+      createdBy: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      is_default: {
-        type: Sequelize.BOOLEAN
+      updatedBy: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +53,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable({tableName : "user_groups", schema : "user"});
+    await queryInterface.dropTable({tableName : "notifications", schema : "user"});
   }
 };

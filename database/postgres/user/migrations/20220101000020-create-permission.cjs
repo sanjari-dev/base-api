@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("groups", {
+    await queryInterface.createTable("permissions", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,13 +11,18 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      display: {
+        type: Sequelize.STRING
+      },
       description: {
         type: Sequelize.STRING
       },
-      by: {
+      createdBy: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      count: {
+      updatedBy: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -36,6 +41,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable({tableName : "groups", schema : "user"});
+    await queryInterface.dropTable({tableName : "permissions", schema : "user"});
   }
 };

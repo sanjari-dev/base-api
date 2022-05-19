@@ -7,6 +7,34 @@ export default class Profile extends sans.class.classer.controller
   constructor()
   {
     super();
+    this.#docs();
+  }
+
+  index(req, res, next)
+  {
+    const _ = sans.app().class;
+    let middleware = [
+      sans.middleware.headers.x_access_token,
+      sans.middleware.headers.token,
+      _.middleware.profile.index
+    ]
+    return sans.helpers.middleware.run(middleware, next);
+  }
+
+  edit(req, res, next)
+  {
+    const _ = sans.app().class;
+    let middleware = [
+      sans.middleware.headers.x_access_token,
+      sans.middleware.headers.token,
+      _.middleware.profile.edit
+    ]
+    return sans.helpers.middleware.run(middleware, next);
+  }
+
+  #docs()
+  {
+
     this.request_body = {
       "put": {
         "name": {
@@ -45,28 +73,7 @@ export default class Profile extends sans.class.classer.controller
         }
       ]
     }
-  }
 
-  index(req, res, next)
-  {
-    const _ = sans.app().class;
-    let middleware = [
-      sans.middleware.headers.x_access_token,
-      sans.middleware.headers.token,
-      _.middleware.profile.index
-    ]
-    return sans.helpers.middleware.run(middleware, next);
-  }
-
-  edit(req, res, next)
-  {
-    const _ = sans.app().class;
-    let middleware = [
-      sans.middleware.headers.x_access_token,
-      sans.middleware.headers.token,
-      _.middleware.profile.edit
-    ]
-    return sans.helpers.middleware.run(middleware, next);
   }
 
   static setup()

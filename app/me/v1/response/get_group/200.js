@@ -10,7 +10,7 @@ export default class R_200
   {
     const _ = sans.app().class;
     const data = _.schema.group.get();
-    const message = "user groups";
+    const message = "user group";
     this.#_example =  {
       "success": {
         "value": sans.helpers.response.success(data, message)

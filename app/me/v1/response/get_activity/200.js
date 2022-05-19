@@ -9,8 +9,8 @@ export default class R_200
   constructor()
   {
     const _ = sans.app().class;
-    const data = _.schema.group.list();
-    const message = "user groups";
+    const data = _.schema.activity.list();
+    const message = "user activity";
     this.#_example =  {
       "success": {
         "value": sans.helpers.response.success(data, message)
